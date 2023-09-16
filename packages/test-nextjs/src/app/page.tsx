@@ -15,7 +15,7 @@ import { useAIStream } from 'ai-jsx/react';
  * A component that generates a poem about a given topic.
  */
 function PoemGenerator() {
-  const DEFAULT_PROMPT = 'A red panda who likes to eat grapes';
+  const DEFAULT_PROMPT = 'A banna';
   const { current, fetchAI } = useAIStream({});
   const [topic, setTopic] = useState(DEFAULT_PROMPT);
 
@@ -45,16 +45,49 @@ function PoemGenerator() {
 }
 
 /**
+ * A component that generates a recipe using provided ingredients.
+ */
+function RecipeGenerator() {
+  const DEFAULT_PROMPT = 'A banna';
+  const { current, fetchAI } = useAIStream({});
+  const [ingredients, setIngredients] = useState(DEFAULT_PROMPT);
+
+  return (
+    <div style={{ width: '600px' }}>
+      <textarea value={ingredients} onChange={(e) => setIngredients(e.currentTarget.value)} style={{ width: '100%' }} />
+      <br />
+      <input
+        type="submit"
+        value="Give me ideas on what to cook"
+        disabled={ingredients.trim() === ''}
+        onClick={() => {
+          fetchAI('/api/recipe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ingredients }),
+          });
+        }}
+      />
+      {current && <div style={{ width: '100%', whiteSpace: 'pre-line', paddingTop: '10px' }}>{current}</div>}
+    </div>
+  );
+}
+
+/**
  * The main page for the AI.JSX Next.js App Demo.
  */
 export default function Home() {
   return (
     <main className={styles.main}>
       <div>
-        <h2>AI.JSX Next.js App Demo</h2>
+        <h2>On page title in an H2 element</h2>
       </div>
       <div>
         <PoemGenerator />
+      </div>
+      <hr />
+      <div>
+        <RecipeGenerator />
       </div>
     </main>
   );

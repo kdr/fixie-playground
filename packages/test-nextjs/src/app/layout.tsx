@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'AI.JSX Next.js App Demo',
-  description: 'A simple demo of using AI.JSX in a Next.js app.',
+  title: 'Test title - Browser title goes here',
+  description: 'example description',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
